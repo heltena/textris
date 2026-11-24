@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Textris (1997)</title>
+<style>
+  :root { color-scheme: dark; --bg: #101216; --panel: #1a1d24; --text: #d7dae0; --dim: #8b919d; --accent: #ffd75f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 1000px; margin: 0 auto; padding: 20px 16px 40px; }
+  h1 { font-size: 20px; margin: 0 0 2px; letter-spacing: .04em; }
+  .sub { color: var(--dim); margin: 0 0 14px; }
+  .screen { position: relative; background: #000; border: 1px solid #2b303a; border-radius: 6px; overflow: hidden; }
+  canvas { display: block; width: 100%; height: auto; }
+  .overlay { position: absolute; inset: 0; display: flex; flex-direction: column; gap: 14px;
+             align-items: center; justify-content: center; text-align: center; padding: 24px;
+             background: rgba(0, 0, 0, .78); }
+  .overlay[hidden] { display: none; }
+  .overlay p { margin: 0; max-width: 46ch; }
+  button { font: inherit; color: #111; background: var(--accent); border: 0; border-radius: 4px;
+           padding: 9px 22px; font-weight: 600; cursor: pointer; }
+  button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  button.plain { background: transparent; color: var(--text); border: 1px solid #3a404c; font-weight: 400; padding: 5px 12px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0 18px; color: var(--dim); }
+  .bar .grow { flex: 1; }
+  .help { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .card { background: var(--panel); border-radius: 6px; padding: 12px 14px; }
+  .card h2 { font-size: 14px; margin: 0 0 6px; color: var(--accent); font-weight: 600; }
+  .card dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0; }
+  .card dt { color: var(--dim); }
+  .card dd { margin: 0; }
+  kbd { font: 12px ui-monospace, Menlo, Consolas, monospace; background: #2a2f39; border-radius: 3px; padding: 1px 5px; }
+  .card p { margin: 0; }
+  footer { color: var(--dim); margin-top: 18px; font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>TEXTRIS</h1>
+  <p class="sub">Estructura de Computadors, E.T.I.S. Tarda, abril de 1997. El codi C original, compilat a WebAssembly.</p>
+
+  <div class="screen">
+    <canvas id="screen" width="1440" height="800" aria-label="Pantalla de text de 80 per 25 del joc"></canvas>
+    <div class="overlay" id="overlay">
+      <p id="message">Carregant…</p>
+      <button id="start" hidden>Jugar</button>
+    </div>
+  </div>
+
+  <div class="bar">
+    <span id="status"></span>
+    <span class="grow"></span>
+    <button class="plain" id="mute" aria-pressed="false">So del navegador: activat</button>
+  </div>
+
+  <div class="help">
+    <div class="card">
+      <h2>Jugador Juan</h2>
+      <dl>
+        <dt>Rotar</dt><dd><kbd>Q</kbd> esquerra, <kbd>E</kbd> dreta</dd>
+        <dt>Moure</dt><dd><kbd>A</kbd> esquerra, <kbd>D</kbd> dreta</dd>
+        <dt>Baixar</dt><dd><kbd>X</kbd></dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h2>Jugador Tu (teclat numèric)</h2>
+      <dl>
+        <dt>Rotar</dt><dd><kbd>7</kbd> esquerra, <kbd>9</kbd> dreta</dd>
+        <dt>Moure</dt><dd><kbd>4</kbd> esquerra, <kbd>6</kbd> dreta</dd>
+        <dt>Baixar</dt><dd><kbd>2</kbd></dd>
+      </dl>
+      <p style="margin-top:6px;color:var(--dim)">Sense teclat numèric: fletxes, <kbd>Inici</kbd> i <kbd>Re Pàg</kbd>.</p>
+    </div>
+    <div class="card">
+      <h2>Comuns i menú</h2>
+      <dl>
+        <dt>So</dt><dd><kbd>O</kbd> música, <kbd>I</kbd> efectes</dd>
+        <dt>Sortir</dt><dd><kbd>Esc</kbd></dd>
+      </dl>
+      <p style="margin-top:6px">Al menú, fes rotar la peça fins que apunti a l'opció i prem «Baixar». «Esquerra» i «Dreta» canvien de submenú.</p>
+    </div>
+  </div>
+
+  <footer>Joan Carol Serrat i Helio Tejedor Navarro. Les rutines d'assemblador s'han substituït per una capa que emula la pantalla de text, el teclat, el rellotge i l'altaveu del PC.</footer>
+</main>
+<script type="module" src="textris.js"></script>
+</body>
+</html>
